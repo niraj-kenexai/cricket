@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: fact_cricket
+    columns:
+      - name: delivery_id
+        tests:
+          - not_null
+
+  - name: dim_match
+    columns:
+      - name: match_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_venue
+    columns:
+      - name: venue_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_team
+    columns:
+      - name: team_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_player
+    columns:
+      - name: player_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_drs
+    columns:
+      - name: drs_review_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_contract
+    columns:
+      - name: contract_id
+        tests:
+          - not_null
+
+  - name: dim_rating
+    columns:
+      - name: rating_id
+        tests:
+          - unique
+          - not_null
+      - name: player_id
+        tests:
+          - not_null

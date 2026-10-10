@@ -150,10 +150,7 @@ clean AS (
         try_cast(nullif(trim(sourcefile), '') AS VARCHAR(500)) AS sourcefile,
         load_timestamp,
 
-        ROW_NUMBER() OVER (
-            PARTITION BY delivery_id 
-            ORDER BY load_timestamp DESC NULLS LAST
-        ) AS row_num
+        ROW_NUMBER() OVER (PARTITION BY delivery_id ORDER BY load_timestamp DESC NULLS LAST) AS row_num
 
     FROM raw_source
 

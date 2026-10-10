@@ -7,7 +7,7 @@ from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
 
 try:
-    from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig
+    from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig, RenderConfig
     COSMOS_AVAILABLE = True
 except ImportError:
     COSMOS_AVAILABLE = False
@@ -199,11 +199,14 @@ with DAG(
                 dbt_project_path=DBT_PROJECT_PATH,
             ),
             profile_config=profile_config,
+            render_config=RenderConfig(
+                select=["path:models/gold"],
+            ),
         )
     else:
         dbt_transform = BashOperator(
             task_id="dbt_transformations",
-            bash_command=f"cd {DBT_PROJECT_PATH} && dbt run --profiles-dir {DBT_PROJECT_PATH}/dbt_profiles",
+            bash_command=f"cd {DBT_PROJECT_PATH} && dbt run --select path:models/gold --profiles-dir {DBT_PROJECT_PATH}",
         )
 
     wait_for_csv >> load_to_bronze >> dbt_transform
