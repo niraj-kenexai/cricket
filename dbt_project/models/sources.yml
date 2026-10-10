@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: "{{ env_var('SNOWFLAKE_DATABASE', 'CRICKET_DB') }}"
+    schema: BRONZE
+    tables:
+      - name: RAW_DATA
+        description: Raw ingested dataset table

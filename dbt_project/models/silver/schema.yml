@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: silver_cricket_data
+    description: "silver cricket dataset."
+    columns:
+      - name: delivery_key
+        description: ""
+        tests:
+          - unique
+          - not_null
+      - name: delivery_id
+        description: ""
+        tests:
+          - not_null
+
+
+
